@@ -17,7 +17,6 @@ function MyAppController() {
 
 
     function init(modelSources, modelPairs, modelData) {
-
         self.sources = modelSources;
         self.pairs = modelPairs;
         self.data = modelData;

@@ -13,15 +13,15 @@ namespace OfakimTestProject.DAL
             SetCommandTimeOut(0);
         }
 
+        public DbSet<CurrencySourceDataModel> CurrencySources { get; set; }
+        public DbSet<CurrencyPairModel> CurrencyPairs { get; set; }
+        public DbSet<CurrencyDataModel> CurrencyData { get; set; }
+
         public void SetCommandTimeOut(int Timeout)
         {
             var objectContext = (this as IObjectContextAdapter).ObjectContext;
             objectContext.CommandTimeout = Timeout;
         }
-
-        public DbSet<CurrencySourceDataModel> CurrencySources { get; set; }
-        public DbSet<CurrencyPairModel> CurrencyPairs { get; set; }
-        public DbSet<CurrencyDataModel> CurrencyData { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

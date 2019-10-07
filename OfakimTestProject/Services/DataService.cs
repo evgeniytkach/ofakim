@@ -90,17 +90,23 @@ namespace OfakimTestProject.Services
                 //Log
             }
             return false;
-
         }
 
         //Keep only data for last 10 days
         public static void DeleteOldValues()
         {
-            var oldDataTime = HelpService.GetIsraelTime().AddDays(-10);
-            using (var db = new DbOfakimContext())
+            try
             {
-                db.CurrencyData.RemoveRange(db.CurrencyData.Where(x => x.DateCreate < oldDataTime));
-                db.SaveChanges();
+                var oldDataTime = HelpService.GetIsraelTime().AddDays(-10);
+                using (var db = new DbOfakimContext())
+                {
+                    db.CurrencyData.RemoveRange(db.CurrencyData.Where(x => x.DateCreate < oldDataTime));
+                    db.SaveChanges();
+                }
+            }
+            catch
+            {
+                //Log
             }
         }
 
