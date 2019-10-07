@@ -1,0 +1,58 @@
+﻿@model OfakimTestProject.Models.MainModel
+
+@{
+    ViewBag.Title = "Ofakim Test Project - Exchange Rates";
+    <script src="~/Scripts/my-angular.js"></script>
+}
+
+<div ng-app="myApp" ng-cloak>
+    <div ng-controller="MyAppController as ctrl">
+
+        <div data-ng-init="ctrl.init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model.CurrencySources), @Newtonsoft.Json.JsonConvert.SerializeObject(Model.CurrencyPairs), @Newtonsoft.Json.JsonConvert.SerializeObject(Model.CurrencyData))">
+
+
+            @*Sources*@
+            <div class="sources">
+                <h3>Sources:</h3>
+                <div ng-repeat="source in ctrl.sources">
+                    <input class="check" type="checkbox" id="source-{{source.Id}}" ng-model="ctrl.filterSource[source.Id]" />
+                    <label ng-class="[{true:'label-checked', false:'label-unchecked'}[ ctrl.filterSource[source.Id]]]" for="source-{{source.Id}}">
+                        {{ source.Name }}
+                    </label>
+                </div>
+            </div>
+
+            @*Pairs*@
+            <div class="pairs">
+                <h3>Pairs:</h3>
+                <div ng-repeat="pair in ctrl.pairs">
+                    <input class="check" type="checkbox" id="pair-{{pair.Id}}" ng-model="ctrl.filterPair[pair.Id]" />
+                    <label ng-class="[{true:'label-checked', false:'label-unchecked'}[ ctrl.filterPair[pair.Id]]]" for="pair-{{pair.Id}}">
+                        {{ pair.Code1  }} / {{ pair.Code2 }}
+                    </label>
+                </div>
+            </div>
+
+            @*Data*@
+            <table class="table">
+                <tr>
+                    <th>Source</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Value</th>
+                    <th>Date Update</th>
+                </tr>
+                <tr ng-repeat="item in (ctrl.data | filter:ctrl.filterBySource | filter:ctrl.filterByPair) as filteredPosts">
+                    <td>{{ (ctrl.sources | filter : {'Id':item.SourceId})[0].Name }}</td>
+                    <td>{{ (ctrl.pairs | filter : {'Id':item.PairId})[0].Code1 }}</td>
+                    <td>{{ (ctrl.pairs | filter : {'Id':item.PairId})[0].Code2 }}</td>
+                    <td class="c_value">{{item.Value}}</td>
+                    <td>{{item.DateCreate | date :  "medium"}}</td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+
+</div>

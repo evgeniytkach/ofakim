@@ -1,0 +1,29 @@
+﻿@model List<OfakimTestProject.Models.LogModel>
+
+@{
+    ViewBag.Title = "Ofakim Test Project - Exchange Rates";
+    <script src="~/Scripts/my-angular.js"></script>
+}
+
+<div>
+    <h3>Log Information</h3>
+    <table class="table">
+        <tr>
+            <th>PairId</th>
+            <th>SourceId</th>
+            <th>Value</th>
+            <th>Date Update</th>
+            <th>LogMsg</th>
+        </tr>
+        @foreach (var log in Model)
+        {
+            <tr>
+                <td>@log.DataModel.PairId</td>
+                <td>@log.DataModel.SourceId</td>
+                <td>@log.DataModel.Value</td>
+                <td>@log.DataModel.DateCreate</td>
+                <td>@log.LogMsg</td>
+            </tr>
+        }
+    </table>
+</div>
